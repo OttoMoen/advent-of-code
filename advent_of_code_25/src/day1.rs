@@ -1,6 +1,6 @@
 use std::fs;
 
-pub fn day1_part1() {
+pub fn part1() {
     let contents = fs::read_to_string("data/day1.txt").expect("Could not read data");
     let mut value = 50;
     let mut zeros = 0;
@@ -23,7 +23,7 @@ pub fn day1_part1() {
     println!("The password is: {zeros}")
 }
 
-pub fn day1_part2() {
+pub fn part2() {
     let contents = fs::read_to_string("data/day1.txt").expect("Could not read data");
     let mut value = 50;
     let mut zeros = 0;
