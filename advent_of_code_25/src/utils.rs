@@ -1,16 +1,23 @@
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Pos {
     pub row: usize,
     pub col: usize,
 }
 
+impl Pos {
+    pub fn new(row: usize, col: usize) -> Self {
+        Pos { row, col }
+    }
+}
+
+#[derive(Debug)]
 pub struct Map {
     grid: Vec<String>,
-    rows: usize,
-    cols: usize,
+    pub rows: usize,
+    pub cols: usize,
 }
 
 impl Map {
@@ -29,6 +36,17 @@ impl Map {
     pub fn get_pos(&self, pos: Pos) -> Option<char> {
         if pos.row < self.rows && pos.col < self.cols {
             self.grid[pos.row].chars().nth(pos.col)
+        } else {
+            None
+        }
+    }
+
+    pub fn find_char_in_row(&self, row: usize, char_to_find: char) -> Option<Pos> {
+        if row < self.rows {
+            self.grid[row]
+                .chars()
+                .position(|c| c == char_to_find)
+                .map(|pos| Pos::new(row, pos))
         } else {
             None
         }
